@@ -1,0 +1,55 @@
+<!-- templates/base.html -->
+
+{% load sass_tags %}
+{% load profe_tags %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+  <title>{% block title %}{% endblock %}</title>
+
+  <link href="{% sass_src 'style.scss' %}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <header class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="{% url 'home' %}">
+        {% block brand %}{% endblock %}
+      </a>
+      <ul class="navbar-nav ml-auto">
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="">
+              <span>Ola, {% if user.first_name %} {{ user.first_name }}! {% else %} {{ user.email }}! {% endif %}</span>
+              <img class="avatar" src="{{ user|gravatar:30 }}" />
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}"><i class="far fa-sign-out"></i> Cerrar Sesión</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a href="{% url 'login' %}" class="nav-link">Iniciar Sesión</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'rexistro' %}" class="nav-link">Rexistrase</a>
+          </li>
+          {% block menu %}
+          {% endblock %}
+        {% endif %}
+      </ul>
+    </nav>
+  </header>
+  <main class="container">
+    {% block content %}
+    {% endblock %}
+  </main>
+  <footer>
+    {% block footer %}
+    {% endblock %}
+  </footer>
+</body>
+</html>

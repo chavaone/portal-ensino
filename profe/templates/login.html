@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Iniciar sesión{% endblock %}
+
+{% block brand %}
+ <span>EnsinoPúblico.gal</span>
+{% endblock %}
+
+{% block content %}
+
+<section>
+
+  {% if next %}
+      {% if user.is_authenticated %}
+      <p>Your account doesn't have access to this page. To proceed,
+      please login with an account that has access.</p>
+      {% else %}
+      <p>Please login to see this page.</p>
+      {% endif %}
+  {% endif %}
+
+  {% if form.errors %}
+  <p>Your username and password didn't match. Please try again.</p>
+  {% endif %}
+
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <div class="form-group">
+      {{ form.username.label_tag }}
+      <input class="form-control" id="{{ form.username.id_for_label }}" name="{{ form.username.html_name }}" placeholder="" type="text" />
+    </div>
+    <div class="form-group">
+      {{ form.password.label_tag }}
+      <input class="form-control" id="{{ form.password.id_for_label }}" name="{{ form.password.html_name }}" type="password"/>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <input type="hidden" name="next" value="{{ next }}">
+  </form>
+
+  {# Assumes you setup the password_reset view in your URLconf #}
+  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+</section>
+{% endblock %}

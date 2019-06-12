@@ -1,0 +1,14 @@
+{
+  "name": "ensinopublico",
+  "version": "0.1.0",
+  "description": "Portal with tools for teachers in Galicia",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Marcos Chavarría Teijeiro",
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "bootstrap": "^4.3.1"
+  }
+}

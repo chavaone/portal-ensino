@@ -1,0 +1,8 @@
+/static/css/style.css*
+node_modules
+package-lock.json
+*.pyc
+*~
+__pycache__
+db.sqlite3
+*/migrations
