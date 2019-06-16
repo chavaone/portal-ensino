@@ -6,10 +6,18 @@
 
 //BASE - LIBS
 @import "base/lib/custom-bootstrap";
+@import "base/lib/fontawesome";
 
 //LAYOUT
+@import "layout/mainlayout";
+
 
 //MODULE
+@import "module/accountpages";
+@import "module/mainnav";
+@import "module/sitefooter";
+
+
 
 //STATE
 

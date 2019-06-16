@@ -1,11 +1,12 @@
-from hashlib import md5
 from django import template
+import urllib, hashlib
+
 
 register = template.Library()
 
 @register.filter(name='gravatar')
 def gravatar(user, size=35):
     email = str(user.email.strip().lower()).encode('utf-8')
-    email_hash = md5(email).hexdigest()
-    url = "//www.gravatar.com/avatar/{0}?s={1}&d=identicon&r=PG"
-    return url.format(email_hash, size)
+    gravatar_url = "https://www.gravatar.com/avatar/" + hashlib.md5(email.lower()).hexdigest() + "?"
+    gravatar_url += urllib.parse.urlencode({'s':str(size)})
+    return gravatar_url

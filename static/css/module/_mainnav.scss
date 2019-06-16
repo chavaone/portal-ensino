@@ -1,0 +1,36 @@
+
+.mainnav {
+
+
+  &__brand {
+
+  }
+
+  &__sitename {
+    color: black;
+  }
+
+  &__subsitename {
+    color: grey;
+    text-transform: uppercase;
+    font-size: 0.8em;
+
+    &::before {
+      content: "|";
+      margin: 0 5px;
+    }
+  }
+
+  &__user {
+    margin-right: 2em;
+  }
+
+  &__avatar{
+    border-radius: 20px;
+    margin-right: 0.3em;
+  }
+
+  &__username {
+
+  }
+}

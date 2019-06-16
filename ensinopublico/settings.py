@@ -88,13 +88,11 @@ DATABASES = {
 #Change USER MODEL
 AUTH_USER_MODEL = 'profe.Profe'
 
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBackend']
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
@@ -109,15 +107,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
-
 LANGUAGE_CODE = 'gl-es'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 
@@ -134,3 +127,14 @@ SASS_PROCESSOR_ROOT = os.path.join(os.path.join(BASE_DIR, "static"), "css")
 SASS_PROCESSOR_INCLUDE_DIRS = [
     os.path.join(BASE_DIR, 'node_modules'),
 ]
+
+#LOGIN SETTINGS
+LOGIN_REDIRECT_URL = '/'
+
+#EMAIL SETTINGS
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+SERVER_EMAIL = 'root@localhost'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 2500
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''

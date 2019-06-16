@@ -9,6 +9,7 @@
   "author": "Marcos Chavarría Teijeiro",
   "license": "AGPL-3.0",
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.9.0",
     "bootstrap": "^4.3.1"
   }
 }

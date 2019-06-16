@@ -1,0 +1,16 @@
+<!-- templates/password_reset_done.html -->
+{% extends "base_profe.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }}{% endblock %}
+
+
+{% block section_header %}{% trans 'See you!' %}{% endblock %}
+
+{% block section_content %}
+<p>
+  {% blocktrans %}
+  We are sorry you leave us :(
+  {% endblock %}
+</p>
+{% endblock %}
