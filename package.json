@@ -8,8 +8,43 @@
   },
   "author": "Marcos Chavarría Teijeiro",
   "license": "AGPL-3.0",
+  "dependencies": {
+    "bootstrap": "^4.1.1",
+    "ga-lite": "^2.0.1",
+    "jquery": "^3.3.1",
+    "jspdf": "^1.5.3",
+    "leaflet-geosearch": "^2.6.0",
+    "popper.js": "^1.14.3",
+    "vue": "^2.5.11",
+    "vue-clipboard2": "^0.1.0",
+    "vue-i18n": "^7.6.0",
+    "vue-meta": "^1.5.0",
+    "vue2-leaflet": "^1.0.2",
+    "vue2-leaflet-geosearch": "^1.0.1",
+    "vuedraggable": "^2.16.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.9.0",
-    "bootstrap": "^4.3.1"
+    "@kazupon/vue-i18n-loader": "^0.3.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "cross-env": "^5.0.5",
+    "css-loader": "^3.0.0",
+    "file-loader": "^1.1.4",
+    "node-sass": "^4.5.3",
+    "prerender-spa-plugin": "^3.2.1",
+    "sass-loader": "^6.0.6",
+    "vue-loader": "^13.0.5",
+    "vue-template-compiler": "^2.4.4",
+    "webpack": "^3.6.0",
+    "webpack-bundle-tracker": "^0.4.2-beta",
+    "webpack-dev-server": "^2.9.1"
   }
 }

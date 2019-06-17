@@ -2,15 +2,16 @@ var path = require('path')
 var webpack = require('webpack')
 var PrerenderSPAPlugin = require('prerender-spa-plugin')
 const Renderer = PrerenderSPAPlugin.PuppeteerRenderer
-
+var BundleTracker = require('webpack-bundle-tracker');
 
 
 module.exports = {
-  entry: './src/main.js',
+  context: path.resolve(__dirname, '../../../'),
+  entry: './static/js/appcentroseducativos/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
-    filename: 'build.js'
+    publicPath: '/static/js/webpack_bundles/dist/',
+    filename: 'buildcentroseducativos.js'
   },
   module: {
     rules: [
@@ -92,7 +93,10 @@ module.exports = {
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  devtool: '#eval-source-map',
+  plugins: [
+    new BundleTracker({filename: './webpack-stats.json'})
+  ]
 }
 
 if (process.env.NODE_ENV === 'production') {

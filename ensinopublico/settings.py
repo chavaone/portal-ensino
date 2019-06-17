@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     #3rd party
     'sass_processor',
+    'webpack_loader',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +139,15 @@ EMAIL_HOST = 'localhost'
 EMAIL_PORT = 2500
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
+
+#WEBPACK
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'CACHE': not DEBUG,
+        'BUNDLE_DIR_NAME': 'js/webpack_bundles/', # must end with slash
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+        'POLL_INTERVAL': 0.1,
+        'TIMEOUT': None,
+        'IGNORE': [r'.+\.hot-update.js', r'.+\.map']
+    }
+}
