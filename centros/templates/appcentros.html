@@ -1,0 +1,29 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+{% load i18n %}
+{% load render_bundle from webpack_loader %}
+
+{% block title %}{% trans 'Centers' %}{% endblock %}
+
+{% block subsitename %}{% trans 'Centers' %}{% endblock %}
+
+{% block mainmenu %}
+<li class="nav-item">
+    <a class="nav-link" href="#" data-toggle="modal" data-target="#cambiarPosicionModal">
+      {% trans 'Change Location'%}
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="#" data-toggle="modal" data-target="#cambiarExportarCentros">
+      {% trans 'Export Centers' %}
+    </a>
+</li>
+{% endblock %}
+
+{% block content %}
+<div id="app"></div>
+{% endblock %}
+
+{% block customjs %}
+{% render_bundle 'main' %}
+{% endblock %}

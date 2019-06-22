@@ -37,8 +37,8 @@ import VGeosearch from 'vue2-leaflet-geosearch/Vue2LeafletGeosearch';
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: '/static/marker-icon2.png',
-  iconUrl: '/static/marker-icon2.png',
+  iconRetinaUrl: '/static/img/marker-icon2.png',
+  iconUrl: '/static/img/marker-icon2.png',
   shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
 
@@ -100,7 +100,7 @@ export default {
     }
   },
   created() {
-    eventBus.$on('positionModalEnabled', this.fixRendering)
+    eventBus.$on('positionModalEnabled', this.fixRendering);
   }
 }
 

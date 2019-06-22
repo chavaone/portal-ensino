@@ -40,5 +40,9 @@ new Vue({
   mounted () {
       // You'll need this for renderAfterDocumentEvent.
       document.dispatchEvent(new Event('render-event'))
+
+      $("#cambiarPosicionModal").on("shown.bs.modal", function () {
+        eventBus.$emit('positionModalEnabled');
+      });
     }
 }).$mount('#app')

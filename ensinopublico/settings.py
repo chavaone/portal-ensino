@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'profe.apps.ProfeConfig',
+    'centros.apps.CentrosConfig',
 
     #3rd party
     'sass_processor',

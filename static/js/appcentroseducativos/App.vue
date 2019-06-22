@@ -1,48 +1,46 @@
 <template>
-  <div id="app" class="container">
-    <header>
-      <AQDMainHeaderBar :position="position" :activeCenters="activeCenters"></AQDMainHeaderBar>
-      <nav class="barra">
+  <div id="app">
+      <nav class="appnav">
         <span class="info">{{ $t('number-centers', [currentPage + 1, totalPages, activeCenters.length]) }}</span>
         <span class="boton">
           <a class="btn btn-primary" data-toggle="collapse" href="#asideSortFilter" role="button" aria-expanded="false" aria-controls="asideSortFilter">Filtros</a>
         </span>
         <AQDTrash ref="trash"></AQDTrash>
       </nav>
-    </header>
-    <main>
-      <aside class="collapse" id="asideSortFilter">
-        <form>
-          <AQDSortControl ref="sortList"></AQDSortControl>
-          <AQDFilterList ref="filterList"></AQDFilterList>
-        </form>
-      </aside>
-      <AQDDraggable v-if="activeCenters.length > 0"  v-model="activeCenters" @change="setCustomSort()" :options="sortableoptions" class="mainCenterList">
-          <AQDCenter v-for="centro in paginatedActiveCenters" :centro="centro" :key="centro.cod"></AQDCenter>
-      </AQDDraggable>
-      <nav class="center-pagination" v-if="activeCenters.length > 0">
-        <ul class="pagination">
-          <li class="page-item"
-              :class="{disabled: currentPage == 0}">
-            <a class="page-link" href="#" tabindex="-1" @click="currentPage--">{{ $t('anterior') }}</a>
-          </li>
-          <li v-for="page in totalPages"
-              class="page-item"
-              :class="{active: currentPage == page - 1}">
-            <a  class="page-link"
-                @click="currentPage = page - 1;"
-            >{{page}}</a>
-          </li>
-          <li class="page-item" :class="{disabled: currentPage == totalPages - 1}">
-            <a class="page-link" @click="currentPage++;">{{ $t('seguinte') }}</a>
-          </li>
-        </ul>
-      </nav>
-      <AQDLandingMessage v-if="activeCenters.length == 0" :loadedDistances="loadedDistances" :loadedTimes="loadedTimes"></AQDLandingMessage>
-    </main>
-    <footer>
-
-    </footer>
+      <div class="appmain">
+        <aside class="appmain__bar collapse" id="asideSortFilter">
+          <form>
+            <AQDSortControl ref="sortList"></AQDSortControl>
+            <AQDFilterList ref="filterList"></AQDFilterList>
+          </form>
+        </aside>
+        <div class="appmain__content">
+          <AQDDraggable v-if="activeCenters.length > 0"  v-model="activeCenters" @change="setCustomSort()" :options="sortableoptions" class="mainCenterList">
+              <AQDCenter v-for="centro in paginatedActiveCenters" :centro="centro" :key="centro.cod"></AQDCenter>
+          </AQDDraggable>
+          <nav class="center-pagination" v-if="activeCenters.length > 0">
+            <ul class="pagination">
+              <li class="page-item"
+                  :class="{disabled: currentPage == 0}">
+                <a class="page-link" href="#" tabindex="-1" @click="currentPage--">{{ $t('anterior') }}</a>
+              </li>
+              <li v-for="page in totalPages"
+                  class="page-item"
+                  :class="{active: currentPage == page - 1}">
+                <a  class="page-link"
+                    @click="currentPage = page - 1;"
+                >{{page}}</a>
+              </li>
+              <li class="page-item" :class="{disabled: currentPage == totalPages - 1}">
+                <a class="page-link" @click="currentPage++;">{{ $t('seguinte') }}</a>
+              </li>
+            </ul>
+          </nav>
+          <AQDLandingMessage v-if="activeCenters.length == 0" :loadedDistances="loadedDistances" :loadedTimes="loadedTimes"></AQDLandingMessage>
+        </div>
+      </div>
+      <AQDModalChangePosition :position="position"></AQDModalChangePosition>
+      <AQDModalExportCenters :centers="activeCenters"></AQDModalExportCenters>
   </div>
 </template>
 
@@ -60,6 +58,8 @@ import FilterList from './components/filter/FilterList.vue'
 import SortList from './components/sort/SortList.vue'
 import Trash from './components/Trash.vue'
 import LandingMessage from './components/LandingMessage.vue'
+import ModalChangePosition from './components/ModalChangePosition.vue'
+import ModalExportCenters from './components/ModalExportCenters.vue'
 
 export default {
   metaInfo: MetaData,
@@ -102,7 +102,9 @@ export default {
     'AQDMainHeaderBar': MainHeaderBar,
     'AQDSortControl': SortList,
     'AQDTrash': Trash,
-    'AQDLandingMessage': LandingMessage
+    'AQDLandingMessage': LandingMessage,
+    'AQDModalChangePosition': ModalChangePosition,
+    'AQDModalExportCenters': ModalExportCenters
   },
   methods: {
     loadCenters() {
@@ -189,11 +191,8 @@ export default {
   @import "~bootstrap/scss/bootstrap.scss";
   @import "./assets/styles/mixins.scss";
 
-  body {
-      background-color: $background-color;
-  }
 
-  nav.barra {
+  .appnav {
     @include make-box;
     @include make-row;
 
@@ -223,11 +222,12 @@ export default {
     }
   }
 
-  main {
+  .appmain {
+
     @include make-row();
     display: flex !important;
 
-    aside {
+    &__bar {
       @include make-col-ready();
       @include make-col(12);
       margin-bottom: 1em;
@@ -237,34 +237,26 @@ export default {
         @include make-col(3);
         display: inline-block !important;
       }
-    }
 
-    aside>form {
+      &>form {
         @include make-box;
+      }
     }
 
-    &>div,
-    &>.center-pagination {
-        @include make-col-ready();
-        @include make-col(12);
-
-        @include media-breakpoint-up(md) {
-            @include make-col(9);
-        }
-      }
+    &__content {
+      @include make-col-ready();
+      @include make-col(12);
 
       @include media-breakpoint-up(md) {
-        &>.center-pagination {
-          margin-left:25%;
-        }
+          @include make-col(9);
       }
 
       .pagination {
         justify-content: center;
         flex-wrap: wrap;
       }
+    }
   }
-
 </style>
 
 <i18n>

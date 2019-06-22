@@ -1,6 +1,6 @@
 
 //Bootstrap
-import 'bootstrap';
+//import 'bootstrap';
 
 //FontAwesome
 //import fontawesome from '@fortawesome/fontawesome';

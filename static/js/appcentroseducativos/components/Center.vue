@@ -11,7 +11,7 @@
                 <div class="travel-info__content">
 
                   <span class="travel-info__item">
-                    <img class="svg-inline--fa fa-w-16" src="/static/route.svg"/>
+                    <i class="fas fa-route"></i>
                     {{prettyDistance}}
                     <span class="travel-info__itemmore" v-if="routeData.cat1">
                       <span v-if="routeData.cat1 && (routeData.cat1.distancia > 500 || (centro.osm.details.distance < 1000 && routeData.cat1.distancia > 0))">
@@ -79,7 +79,7 @@
                 </div>
                 <div>
                   <dt>{{ $t('email') }}</dt>
-                  <dd><img :src="'/static/emails/' + centro.cod + '.png'" alt=""></dd>
+                  <dd><img :src="'/static/img/emails/' + centro.cod + '.png'" alt=""></dd>
                 </div>
                 <div v-if="centro.servizos.length > 0">
                     <dt>{{ $t('servizos') }}</dt>
