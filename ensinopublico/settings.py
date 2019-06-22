@@ -132,6 +132,7 @@ SASS_PROCESSOR_INCLUDE_DIRS = [
 
 #LOGIN SETTINGS
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/inicio-sesion/'
 
 #EMAIL SETTINGS
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
