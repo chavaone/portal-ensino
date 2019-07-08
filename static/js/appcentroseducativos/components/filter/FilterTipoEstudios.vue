@@ -43,7 +43,7 @@ export default {
         },
         {
           nombre: 'primaria',
-          cod: 'pri'
+          cod: 'prim'
         },
         {
           nombre: 'eso',

@@ -50,7 +50,8 @@ export default {
         'EASD',
         'ESAD',
         'CDAN',
-        'EOI'
+        'EOI',
+        'ESMU'
       ],
       checkedTiposdecentro: [
         'IES',
@@ -67,7 +68,8 @@ export default {
         'EASD',
         'ESAD',
         'CDAN',
-        'EOI'
+        'EOI',
+        'ESMU'
       ]
     };
   },
