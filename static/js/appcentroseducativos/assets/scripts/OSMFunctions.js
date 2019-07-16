@@ -9,7 +9,7 @@ export default {
 
     for (var i = 0; i < centros.length; i += request_max_size) {
       //Get center locations string
-      localizaciones = centros.slice(i, i + request_max_size - 1).map(function(centro) {
+      localizaciones = centros.slice(i, i + request_max_size).map(function(centro) {
         return centro.coordenadas.lon.toString()  + "," +  centro.coordenadas.lat.toString();
       });
 
