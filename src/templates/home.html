@@ -1,0 +1,32 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans 'Home' %}{% endblock %}
+
+{% block subsitename %}{% trans 'Home' %}{% endblock %}
+
+
+{% block content %}
+{% blocktrans %}
+<p>Welcome to EnsinoPúblico.gal portal!</p>
+{% endblocktrans %}
+
+<div class="homepaxinas">
+  <article class="homepaxinas__paxina">
+    <a href="{% url 'appcentros' %}">
+      <img src="/static/img/centros.jpg" alt="">
+      <h3>{% trans 'Centros' %}</h3>
+    </a>
+  </article>
+
+  <article class="homepaxinas__paxina">
+    <a href="{% url 'edit_profe_data' %}">
+      <img src="/static/img/configuracion.png" alt="">
+      <h3>{% trans 'Preferencias de Usuario' %}</h3>
+    </a>
+  </article>
+</div>
+
+
+{% endblock %}

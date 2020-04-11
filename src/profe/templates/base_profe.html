@@ -1,0 +1,17 @@
+<!-- templates/base_profe.html -->
+{% extends "base.html" %}
+{% load i18n %}
+
+
+{% block subsitename %}{% trans 'Account' %}{% endblock %}
+
+{% block content %}
+<section class="accountsection">
+  <header class="accountsection__header">
+    <h2>{% block section_header %}{% endblock %}</h2>
+  </header>
+  <main class="accountsection__content">
+    {% block section_content %}{% endblock %}
+  </main>
+</section>
+{% endblock %}
