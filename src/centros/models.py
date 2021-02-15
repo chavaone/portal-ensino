@@ -55,11 +55,6 @@ class Ensinanza (models.Model):
     def __str__(self):
         return self.tipo + " - " + self.nome
 
-class Servizo (models.Model):
-    nome = models.CharField(max_length=75,)
-
-    def __str__(self):
-        return self.nome
 
 class Centro(models.Model):
     codigo = models.IntegerField(unique=True)
@@ -84,27 +79,6 @@ class Centro(models.Model):
         blank=True)
     email = models.EmailField(blank=True, null=True)
     ensinanzas = models.ManyToManyField(Ensinanza)
-    servizos = models.ManyToManyField(Servizo)
 
     def __str__(self):
         return self.nome
-
-class Xornada(models.Model):
-    TIPO_XORNADA = [
-        ('PA', _('Partida')),
-        ('CO', _('Continua')),
-        ('MI', _('Mixta'))
-    ]
-    TIPO_NIVEL = [
-        ('IN', _('Infantil')),
-        ('PR', _('Primaria')),
-    ]
-    centro = models.ForeignKey('Centro', on_delete=models.CASCADE)
-    nivel = models.CharField(
-        max_length=2,
-        choices=TIPO_NIVEL,
-    )
-    tipo_xornada = models.CharField(
-        max_length=2,
-        choices=TIPO_XORNADA,
-    )
