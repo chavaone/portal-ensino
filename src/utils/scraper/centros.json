@@ -13539,5 +13539,28 @@
     "Teléfono": 881880794,
     "COORDENADA_X": 43.10161,
     "COORDENADA_Y": -9.215475
+  },
+  {
+    "Código": 15033149,
+    "Nome": "CEIP de Culleredo",
+    "Enderezo": "Avenida de Rutis s/n",
+    "Concello": "Culleredo",
+    "Provincia": "A Coruña",
+    "Cód. postal": 15174,
+    "Teléfono": 881960920,
+    "COORDENADA_X": 43.312283,
+    "COORDENADA_Y": -8.376285
+  },
+  {
+    "Código": 36024987,
+    "Nome": "IES de Soutomaior",
+    "Enderezo": "Estrada Provincial s/n",
+    "Concello": "Soutomaior",
+    "Provincia": "Pontevedra",
+    "Cód. postal":36690 ,
+    "Teléfono": 886159801,
+    "COORDENADA_X": 42.33766,
+    "COORDENADA_Y": -8.573996
   }
+
 ]
