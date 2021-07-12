@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 import VueClipboard from 'vue-clipboard2'
+import VueResource from 'vue-resource'
 import Meta from 'vue-meta';
 import galite from 'ga-lite';
 
@@ -10,6 +11,8 @@ const i18n = new VueI18n({
   locale: 'gl',
   fallbackLocale: 'gl'
 })
+
+Vue.use(VueResource)
 
 Object.defineProperty(Vue.prototype, '$locale', {
     get: function () {

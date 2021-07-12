@@ -2,9 +2,9 @@
   <div class="filter">
     <h5>{{ $t('provinces') }}</h5>
     <div class="filterList">
-      <span v-for="provincia in provincias"
-            :class="{active: checkedProvincias.indexOf(provincia) != -1}"
-            @click="addOrDeleteTipoDeCentro(provincia)">
+      <span v-for="(provincia, key) in provincias"
+            :class="{active: checkedProvincias.indexOf(key) != -1}"
+            @click="addOrDeleteProvincia(key)">
         {{provincia}}
       </span>
     </div>
@@ -13,7 +13,7 @@
            v-for="(provincia, key) in provincias">
         <input  type="checkbox"
                 class="form-check-input"
-                :value="provincia" :id="key + '-checkbox'"
+                :value="key" :id="key + '-checkbox'"
                 v-model="checkedProvincias"
                 @change="filterChanged()">
         <label class="form-check-label"
@@ -32,27 +32,27 @@ export default {
   data : function() {
     return {
       provincias: {
-        'acoruna': 'A Coruña',
-        'lugo': 'Lugo',
-        'ourense': 'Ourense',
-        'pontevedra': 'Pontevedra'
+        'AC': 'A Coruña',
+        'LU': 'Lugo',
+        'OU': 'Ourense',
+        'PO': 'Pontevedra'
       },
       checkedProvincias: [
-        'A Coruña',
-        'Lugo',
-        'Ourense',
-        'Pontevedra'
+        'AC',
+        'LU',
+        'OU',
+        'PO'
       ]
     };
   },
   methods: {
     filter(centro) {
-      return this.checkedProvincias.indexOf(centro.provincia) > -1;
+      return this.checkedProvincias.indexOf(centro.prov) != -1;
     },
     filterChanged() {
       eventBus.$emit('filterOrSortChanged', 'filterProvincia');
     },
-    addOrDeleteTipoDeCentro(provincia) {
+    addOrDeleteProvincia(provincia) {
       var index = this.checkedProvincias.indexOf(provincia);
       if(index == -1) {
         this.checkedProvincias.push(provincia);

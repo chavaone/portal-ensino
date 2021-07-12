@@ -10,7 +10,7 @@ export default {
     for (var i = 0; i < centros.length; i += request_max_size) {
       //Get center locations string
       localizaciones = centros.slice(i, i + request_max_size).map(function(centro) {
-        return centro.coordenadas.lon.toString()  + "," +  centro.coordenadas.lat.toString();
+        return centro.coor.lon.toString()  + "," +  centro.coor.lat.toString();
       });
 
       //Create AJAX call
@@ -50,11 +50,11 @@ export default {
     var dLat,dLon,a;
 
     for (var i = 0; i < centros.length; i++) {
-      dLat = (centros[i].coordenadas.lat - currentLocation.lat) * Math.PI / 180;  // deg2rad below
-      dLon = (centros[i].coordenadas.lon - currentLocation.lon) * Math.PI / 180;
+      dLat = (centros[i].coor.lat - currentLocation.lat) * Math.PI / 180;  // deg2rad below
+      dLon = (centros[i].coor.lon - currentLocation.lon) * Math.PI / 180;
       a =
        0.5 - Math.cos(dLat)/2 +
-       Math.cos(currentLocation.lat * Math.PI / 180) * Math.cos(centros[i].coordenadas.lat * Math.PI / 180) *
+       Math.cos(currentLocation.lat * Math.PI / 180) * Math.cos(centros[i].coor.lat * Math.PI / 180) *
        (1 - Math.cos(dLon))/2;
 
       if (! centros[i].osm) centros[i].osm = {};
@@ -70,9 +70,9 @@ export default {
             "," +
             currentLocation.lat.toString() +
             ";" +
-            centro.coordenadas.lon.toString()  +
+            centro.coor.lon.toString()  +
             "," +
-            centro.coordenadas.lat.toString(),
+            centro.coor.lat.toString(),
       data: {
         steps: true,
         overview: false

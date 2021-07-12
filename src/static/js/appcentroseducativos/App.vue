@@ -50,6 +50,8 @@ import OSMFunctions from './assets/scripts/OSMFunctions.js'
 import MetaData from './assets/scripts/MetaDataValues.js'
 import Config from './config.js'
 
+var raw_centers_db;
+
 //Components
 import Draggable from 'vuedraggable'
 import Center from './components/Center.vue'
@@ -150,7 +152,10 @@ export default {
     setCustomSort() {
       this.$refs.sortList.setCustomSort();
     },
-    dbLoaded() {
+    dbLoaded(response) {
+
+      raw_centers_db = response.body;
+
       //We add trashed field so this field is 'reactified'.
       raw_centers_db.forEach(function(center){
         center.trashed = false;
@@ -177,11 +182,7 @@ export default {
     eventBus.$on('loadCenters', this.loadCenters);
     eventBus.$on('centerdetails', this.getCenterDetails);
 
-
-    var dbScript = document.createElement("script");
-    dbScript.onload = this.dbLoaded;
-    dbScript.src="/static/db.min.js";
-    document.getElementById("app").appendChild(dbScript);
+    this.$http.get('/centros/api').then(this.dbLoaded);
   }
 }
 </script>

@@ -1,9 +1,9 @@
 <template lang="html">
-  <article :data-cod="centro.cod" :class="{trashed: centro.trashed}">
+  <article :data-cod="centro.cod" :class="{trashed: centro.trashed}" class="centro">
         <div class="info">
             <header>
                 <h3 class="name">{{centro.nome}}</h3>
-                <h5 class="city">{{centro.concello}}, {{centro.provincia}}</h5>
+                <h5 class="city">{{centro.con}}, {{centro.prov}}</h5>
               </header>
             <div class="travel-info">
                 <span class="travel-info__title">{{ $t('info-travel') }}</span>
@@ -58,50 +58,10 @@
               </button>
               <button type="button" class="btn btn-sm btn-primary" @click="trash()"><i class="fa fa-trash"></i></button>
               <button type="button" class="btn btn-xs btn-primary" @click="getOSMDetails()" :class="{disabled: detailsCounter}"><i class="fas fa-map-signs"></i></button>
+              <!--
               <button class="btn btn-sm btn-primary" type="button" data-toggle="collapse" :data-target="'#info-cen-' + centro.cod" aria-expanded="false" :aria-controls="'info-cen-' + centro.cod"><i class="fa fa-info"></i></button>
+              -->
             </div>
-        </div>
-        <div class="more-info collapse" :id="'info-cen-' + centro.cod">
-            <dl>
-              <div class="">
-                <dt>{{ $t('enderezo') }}</dt>
-                <dd>{{centro.enderezo}}
-                  <a  target="_blank"
-                      :href="'http://www.openstreetmap.org/?mlat=' + centro.coordenadas.lat + '&mlon=' + centro.coordenadas.lon + '&zoom=17'">
-                    <i class="fa fa-map-marker-alt"></i>
-                  </a>
-                </dd>
-
-              </div>
-                <div v-if="centro.web.length > 0">
-                  <dt>{{ $t('web') }}</dt>
-                  <dd><a :href="centro.web">{{centro.web}}</a></dd>
-                </div>
-                <div>
-                  <dt>{{ $t('email') }}</dt>
-                  <dd><img :src="'/static/img/emails/' + centro.cod + '.png'" alt=""></dd>
-                </div>
-                <div v-if="centro.servizos.length > 0">
-                    <dt>{{ $t('servizos') }}</dt>
-                    <dd>{{ centro.servizos.join(', ') }}</dd>
-                </div>
-                <div>
-                  <dt> {{$t('telefono')}}</dt>
-                  <dd>{{ centro.tlf }}</dd>
-                </div>
-                <div v-if="centro.xornada.inf">
-                  <dt> {{$t('xornada-inf')}}</dt>
-                  <dd>{{ centro.xornada.inf }}</dd>
-                </div>
-                <div v-if="centro.xornada.prim">
-                  <dt> {{$t('xornada-prim')}}</dt>
-                  <dd>{{ centro.xornada.prim }}</dd>
-                </div>
-                <div v-if="centro.ensinanzas.bac">
-                  <dt> {{$t('ramas-bac')}}</dt>
-                  <dd>{{ centro.ensinanzas.bac | prettyRamas}}</dd>
-                </div>
-            </dl>
         </div>
     </article>
 </template>
@@ -156,12 +116,6 @@ export default {
       return ret;
     }
   },
-  filters: {
-      prettyRamas (obj) {
-          var keys = (function(o){var ks=[]; for(var k in o) ks.push(k); return ks})(obj);
-          return keys.join(", ");
-      }
-  },
   methods: {
     trash(){
       this.centro.trashed = ! this.centro.trashed;
@@ -208,7 +162,7 @@ export default {
 <style lang="scss">
 @import "./../assets/styles/mixins.scss";
 
-article {
+article.centro {
   @include make-box;
   margin-bottom: 1em;
 

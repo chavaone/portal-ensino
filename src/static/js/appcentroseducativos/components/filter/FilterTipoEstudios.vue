@@ -39,55 +39,51 @@ export default {
       tiposDeEstudios: [
         {
           nombre: 'infantil',
-          cod: 'inf'
+          cod: 'INF'
         },
         {
           nombre: 'primaria',
-          cod: 'prim'
+          cod: 'PRI'
         },
         {
           nombre: 'eso',
-          cod: 'eso'
+          cod: 'ESO'
         },
         {
           nombre: 'bac',
-          cod: 'bac'
+          cod: 'BAC'
         },
         {
           nombre: 'esa',
-          cod: 'esa'
-        },
-        {
-          nombre: 'baca',
-          cod: 'baca'
+          cod: 'ESA'
         },
         {
           nombre: 'esp',
-          cod: 'esp'
+          cod: 'ESP'
         },
         {
           nombre: 'fp',
-          cod: 'fp'
+          cod: 'FP'
         },
         {
           nombre: 'musica',
-          cod: ['mus', 'mus-sup']
+          cod: 'MUS'
         },
         {
           nombre: 'art-des',
-          cod: ['prof-art-des', 'sup-desenho']
+          cod: 'ARDE'
         },
         {
           nombre: 'idiomas',
-          cod: "idiomas"
+          cod: 'IDI'
         },
         {
           nombre: 'danza',
-          cod: 'danza'
+          cod: 'DAN'
         },
         {
           nombre: 'dramatico',
-          cod: "sup-drama"
+          cod: 'ARDR'
         }
       ],
       checkedTiposDeEstudios: []
@@ -96,14 +92,7 @@ export default {
   methods: {
     filter(centro) {
       for(var i = 0; i < this.checkedTiposDeEstudios.length; i++) {
-        if (Array.isArray(this.checkedTiposDeEstudios[i])){
-            for (var j = 0; j < this.checkedTiposDeEstudios[i].length; j++){
-              if (centro.ensinanzas[this.checkedTiposDeEstudios[i][j]]) {
-                return true;
-              }
-            }
-        }
-        if (centro.ensinanzas[this.checkedTiposDeEstudios[i]])
+        if (centro.ens.indexOf(this.checkedTiposDeEstudios[i]) != -1)
           return true;
       }
       return false;
@@ -148,7 +137,6 @@ export default {
       "eso": "ESO",
       "bac": "BAC",
       "esa": "ESO de Adultos",
-      "baca": "Bacharelato de Adultos",
       "esp": "Educación Especial",
       "fp": "FP",
       "musica": "Música",
@@ -166,7 +154,6 @@ export default {
       "eso": "ESO",
       "bac": "BAC",
       "esa": "ESO de Adultos",
-      "baca": "Bachillerato de Adultos",
       "esp": "Educación Especial",
       "fp": "FP",
       "musica": "Música",
