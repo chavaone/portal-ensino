@@ -13,15 +13,15 @@
                   <span class="travel-info__item">
                     <i class="fas fa-route"></i>
                     {{prettyDistance}}
-                    <span class="travel-info__itemmore" v-if="routeData.cat1">
-                      <span v-if="routeData.cat1 && (routeData.cat1.distancia > 500 || (centro.osm.details.distance < 1000 && routeData.cat1.distancia > 0))">
-                        <span class="cat-icon cat-icon--1">1</span>{{ beautifyDistance(routeData.cat1.distancia/1000)}}
+                    <span class="travel-info__itemmore" v-if="centro.osm.routeData">
+                      <span v-if="showTIDistance('cat1')">
+                        <span class="cat-icon cat-icon--1">1</span>{{ beautifyDistance(centro.osm.routeData.cat1.distancia/1000)}}
                       </span>
-                      <span v-if="routeData.cat2 && (routeData.cat2.distancia > 500 || (centro.osm.details.distance < 1000 && routeData.cat2.distancia > 0))">
-                        <span class="cat-icon cat-icon--2">2</span>{{ beautifyDistance(routeData.cat2.distancia/1000)}}
+                      <span v-if="showTIDistance('cat2')">
+                        <span class="cat-icon cat-icon--2">2</span>{{ beautifyDistance(centro.osm.routeData.cat2.distancia/1000)}}
                       </span>
-                      <span v-if="routeData.cat3 && (routeData.cat3.distancia > 500 || (centro.osm.details.distance < 1000 && routeData.cat3.distancia > 0))">
-                        <span class="cat-icon cat-icon--3">3</span>{{ beautifyDistance(routeData.cat3.distancia/1000)}}
+                      <span v-if="showTIDistance('cat3')">
+                        <span class="cat-icon cat-icon--3">3</span>{{ beautifyDistance(centro.osm.routeData.cat3.distancia/1000)}}
                       </span>
                     </span>
                   </span>
@@ -29,15 +29,16 @@
                   <span class="travel-info__item">
                     <i class="fas fa-clock"></i>
                     {{prettyTime}}
-                    <span class="travel-info__itemmore" v-if="routeData.cat1">
-                      <span v-if="routeData.cat1 && (routeData.cat1.tiempo > 120 || (centro.osm.details.duration < 900 && routeData.cat1.tiempo > 0))">
-                        <span class="cat-icon cat-icon--1">1</span><span>{{ beautifyTime(routeData.cat1.tiempo)}}</span>
+                    <span class="travel-info__itemmore" v-if="centro.osm.routeData">
+                      <span v-if="showTITime('cat1')">
+                        <span class="cat-icon cat-icon--1">1</span>
+                        <span>{{ beautifyTime(centro.osm.routeData.cat1.tiempo)}}</span>
                       </span>
-                      <span v-if="routeData.cat2 && (routeData.cat2.tiempo > 120 || (centro.osm.details.duration < 900 && routeData.cat2.tiempo > 0))">
-                        <span class="cat-icon cat-icon--2">2</span><span>{{ beautifyTime(routeData.cat2.tiempo)}}</span>
+                      <span v-if="showTITime('cat2')">
+                        <span class="cat-icon cat-icon--2">2</span><span>{{ beautifyTime(centro.osm.routeData.cat2.tiempo)}}</span>
                       </span>
-                      <span v-if="routeData.cat3 && (routeData.cat3.tiempo > 120 || (centro.osm.details.duration < 900 && routeData.cat3.tiempo > 0))">
-                        <span class="cat-icon cat-icon--3">3</span><span>{{ beautifyTime(routeData.cat3.tiempo)}}</span>
+                      <span v-if="showTITime('cat3')">
+                        <span class="cat-icon cat-icon--3">3</span><span>{{ beautifyTime(centro.osm.routeData.cat3.tiempo)}}</span>
                       </span>
                     </span>
                   </span>
@@ -58,16 +59,15 @@
               </button>
               <button type="button" class="btn btn-sm btn-primary" @click="trash()"><i class="fa fa-trash"></i></button>
               <button type="button" class="btn btn-xs btn-primary" @click="getOSMDetails()" :class="{disabled: detailsCounter}"><i class="fas fa-map-signs"></i></button>
-              <!--
-              <button class="btn btn-sm btn-primary" type="button" data-toggle="collapse" :data-target="'#info-cen-' + centro.cod" aria-expanded="false" :aria-controls="'info-cen-' + centro.cod"><i class="fa fa-info"></i></button>
-              -->
+              <button type="button" class="btn btn-sm btn-primary" @click="getDetails()"><i class="fa fa-info"></i></button>
             </div>
         </div>
     </article>
 </template>
 
 <script>
-import { eventBus } from '../main.js'
+import { eventBus } from '../main.js';
+import OSMFunctions from '../assets/scripts/OSMFunctions.js';
 
 export default {
   props: {
@@ -86,34 +86,6 @@ export default {
       var seconds = this.centro.osm.tiempo;
       if (this.centro.osm.details) seconds = this.centro.osm.details.duration;
       return this.beautifyTime(seconds);
-    },
-    routeData() {
-      if (! this.centro.osm.details) return {};
-
-      var ret = {},
-          steps = this.centro.osm.details.legs[0].steps.map(
-            function(step) {
-              return {
-                distancia: step.distance,
-                tiempo: step.duration,
-                speed: step.distance / step.duration,
-                ref: step.ref
-              };
-            });
-
-      //CAT1 Autovías -> ref empeza por A
-      var stepscat1 = steps.filter((step) => (step.ref && step.ref.startsWith('A')));
-      ret.cat1 = this.reduceSteps(stepscat1);
-
-      //CAT2 Non autovías e velocidade superior a 20m/s ~ 72Km/h
-      var stepscat2 = steps.filter((step) => (! (step.ref && step.ref.startsWith('A')) && step.speed >= 20));
-      ret.cat2 = this.reduceSteps(stepscat2);
-
-      //CAT3 O Resto
-      var stepscat3 = steps.filter((step) => (! (step.ref && step.ref.startsWith('A')) && step.speed < 20));
-      ret.cat3 = this.reduceSteps(stepscat3);
-
-      return ret;
     }
   },
   methods: {
@@ -122,38 +94,22 @@ export default {
       eventBus.$emit('trashcenter', this.centro);
     },
     getOSMDetails() {
+      eventBus.$emit('osmcenterdetails', this.centro);
+    },
+    getDetails() {
       eventBus.$emit('centerdetails', this.centro);
     },
     beautifyDistance(distance) {
-      if (distance < 1) {
-          return (Math.floor(distance * 1000)).toString() + "m.";
-      }
-      return Math.floor(distance).toString() + "km.";
+      return OSMFunctions.beautifyDistance(distance);
     },
     beautifyTime (seconds) {
-      var ret = "",
-          secondsInt = Math.floor(seconds),
-          hours = Math.floor(secondsInt / 3600),
-          minutes = Math.floor((secondsInt % 3600) / 60),
-          secs = (secondsInt % 3600) % 60;
-
-          if (hours) {
-              ret = hours.toString() + "h.";
-          }
-
-          if (minutes) {
-              ret = ret + minutes.toString() + "min.";
-          }
-
-          if (secondsInt && ! ret) {
-              ret = ret + secs.toString() + "s.";
-          }
-
-      return ret;
+      return OSMFunctions.beautifyTime(seconds);
     },
-    reduceSteps (steps) {
-      if (steps.length == 0) return {distancia: 0, tiempo: 0};
-      return steps.reduce((step1, step2) => ({distancia: step1.distancia + step2.distancia, tiempo: step1.tiempo + step2.tiempo}));
+    showTIDistance(cat) {
+      return this.centro.osm.routeData[cat] && (this.centro.osm.routeData[cat].distancia > 500 || (this.centro.osm.details.distance < 1000 && this.centro.osm.routeData[cat].distancia > 0));
+    },
+    showTITime(cat) {
+      return this.centro.osm.routeData[cat] && (this.centro.osm.routeData[cat].tiempo > 120 || (this.centro.osm.details.duration < 900 && this.centro.osm.routeData[cat].tiempo > 0))
     }
   }
 }

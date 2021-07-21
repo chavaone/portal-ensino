@@ -41,6 +41,7 @@
       </div>
       <AQDModalChangePosition :position="position"></AQDModalChangePosition>
       <AQDModalExportCenters :centers="activeCenters"></AQDModalExportCenters>
+      <AQDModalCenterInfo :center="active_center_details" :position="position" ref="modalInfo"></AQDModalCenterInfo>
   </div>
 </template>
 
@@ -62,6 +63,7 @@ import Trash from './components/Trash.vue'
 import LandingMessage from './components/LandingMessage.vue'
 import ModalChangePosition from './components/ModalChangePosition.vue'
 import ModalExportCenters from './components/ModalExportCenters.vue'
+import ModalCenterInfo from './components/ModalCenterInfo.vue'
 
 export default {
   metaInfo: MetaData,
@@ -78,7 +80,8 @@ export default {
       resultCount: 0,
       sortableoptions: {
         handle: 'h3.name',
-      }
+      },
+      active_center_details: null
     }
   },
   computed: {
@@ -106,7 +109,8 @@ export default {
     'AQDTrash': Trash,
     'AQDLandingMessage': LandingMessage,
     'AQDModalChangePosition': ModalChangePosition,
-    'AQDModalExportCenters': ModalExportCenters
+    'AQDModalExportCenters': ModalExportCenters,
+    'AQDModalCenterInfo': ModalCenterInfo
   },
   methods: {
     loadCenters() {
@@ -137,7 +141,8 @@ export default {
         center.osm = {
           distancia: 0,
           tiempo: 0,
-          details: null
+          details: null,
+          routeData: null
         };
       });
 
@@ -164,15 +169,25 @@ export default {
           tiempo: 0,
           details: null,
           loading: false
-        }
+        };
+        center.details = {}
       });
       this.getLocation();
     },
     resetCenters() {
       this.activeCenters = [];
     },
-    getCenterDetails (centro) {
+    getOSMCenterDetails (centro) {
       OSMFunctions.getOSMDetailedRouteInfo(centro, this.position, function () {});
+    },
+    getCenterDetails (centro) {
+      this.active_center_details = centro;
+      if (! this.active_center_details.details) {
+        this.$http.get('/centros/api/centro/' + centro.cod).then(function(response) {
+          this.active_center_details.details = response.body;
+        });
+      }
+      $('#centerInfoModal').modal('show');
     }
   },
   created() {
@@ -180,6 +195,7 @@ export default {
     eventBus.$on('locationChanged', this.resetCenters);
     eventBus.$on('filterOrSortChanged', this.resetCenters);
     eventBus.$on('loadCenters', this.loadCenters);
+    eventBus.$on('osmcenterdetails', this.getOSMCenterDetails);
     eventBus.$on('centerdetails', this.getCenterDetails);
 
     this.$http.get('/centros/api').then(this.dbLoaded);

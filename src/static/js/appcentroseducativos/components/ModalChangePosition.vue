@@ -80,6 +80,12 @@ export default {
     }
   },
   methods:{
+    onShown() {
+      var self = this;
+      setTimeout(function () {
+        self.$refs.map.mapObject.invalidateSize();
+      }, 500);
+    },
     changedLocation() {
       eventBus.$emit('locationChanged', this.position);
     },
@@ -90,17 +96,10 @@ export default {
       this.position.lat = e.latlng.lat;
       this.position.lon = e.latlng.lng;
       this.changedLocation();
-    },
-    //Leaflet thinks the map is tiny and renders the tiles very slowly. So we have to tell it to update the size
-    fixRendering() {
-      var self = this;
-      setTimeout(function () {
-        self.$refs.map.mapObject.invalidateSize();
-      }, 500);
     }
   },
-  created() {
-    eventBus.$on('positionModalEnabled', this.fixRendering);
+  mounted() {
+    $("#cambiarPosicionModal").on("shown.bs.modal", this.onShown);
   }
 }
 
