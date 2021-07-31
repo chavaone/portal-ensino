@@ -40,7 +40,7 @@
         </div>
       </div>
       <AQDModalChangePosition :position="position"></AQDModalChangePosition>
-      <AQDModalExportCenters :centers="activeCenters"></AQDModalExportCenters>
+      <AQDModalExportCenters :centers="activeCenters" :list="activeList"></AQDModalExportCenters>
       <AQDModalCenterInfo :center="active_center_details" :position="position" ref="modalInfo"></AQDModalCenterInfo>
   </div>
 </template>
@@ -70,6 +70,7 @@ export default {
   data () {
     return {
       activeCenters: [],
+      activeList:[],
       position: {
         'lat': 43,
         'lon': -8
@@ -117,6 +118,7 @@ export default {
       var showCenters =  raw_centers_db;
       showCenters = this.$refs.filterList.filter(showCenters);
       showCenters = showCenters.filter(this.$refs.trash.filter);
+      showCenters = showCenters.filter(this.filterCurrentList);
       showCenters = this.$refs.sortList.sort(showCenters);
 
       this.activeCenters = showCenters;
@@ -154,6 +156,12 @@ export default {
         self.loadedDistances = true;
       });
     },
+    filterCurrentList(center) {
+      for(var i= 0; i < this.activeList.length; i++) {
+        if (this.activeList[i].codigos.includes(center.cod)) return false;
+      };
+      return true;
+    },
     setCustomSort() {
       this.$refs.sortList.setCustomSort();
     },
@@ -188,6 +196,19 @@ export default {
         });
       }
       $('#centerInfoModal').modal('show');
+    },
+    loadSegment(segmentList) {
+      console.log(segmentList);
+      var lista_codigos = segmentList.split(" "),
+          show_centers = [];
+
+      for (var i = 0; i < lista_codigos.length; i++) {
+        var centro = raw_centers_db.find(centro => centro.cod == lista_codigos[i]);
+        show_centers.push(centro);
+      }
+
+      this.activeCenters = show_centers;
+
     }
   },
   created() {
@@ -197,6 +218,7 @@ export default {
     eventBus.$on('loadCenters', this.loadCenters);
     eventBus.$on('osmcenterdetails', this.getOSMCenterDetails);
     eventBus.$on('centerdetails', this.getCenterDetails);
+    eventBus.$on('loadSegment', this.loadSegment);
 
     this.$http.get('/centros/api').then(this.dbLoaded);
   }
