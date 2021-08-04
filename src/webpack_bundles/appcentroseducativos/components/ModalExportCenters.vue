@@ -110,7 +110,6 @@
 
 
         </div>
-        <div id="pdftext" class="hidden" v-html="segmentPDFText"></div>
       </div>
       </div>
     </div>
@@ -119,7 +118,7 @@
 
 <script>
 import galite from 'ga-lite'
-import jsPDF from 'jspdf'
+import jsPDF from 'jspdf';
 import Draggable from 'vuedraggable'
 import { eventBus } from '../main.js'
 
@@ -168,11 +167,20 @@ export default {
       galite('send', 'event', 'export', 'copyCodes');
     },
     downloadPDF() {
-      var html = this.centers.map((center) => {return "<p>" + center.cod + " - " + center.nome + "</p>";}).join("");
-      var doc = new jsPDF();
-      doc.fromHTML(html, 15, 15, {
-        'width': 170
-      });
+      const CENTERS_PER_PAGE = 27;
+      var lista = this.centers.map((center) => {return  center.cod + " - " + center.nome + " - " + center.con + "(" + center.prov +  ")";})
+      const doc = new jsPDF();
+
+      for (var i = 0; i < lista.length; i++) {
+        var page_index = i % (CENTERS_PER_PAGE + 1);
+        var y = 15 + 10 * page_index;
+        doc.text(lista[i], 10, y);
+
+        if (page_index == CENTERS_PER_PAGE) {
+          doc.addPage();
+        }
+      }
+
       doc.save(this.$i18n.t('download-pdf-name'));
     },
     onCopy() {
