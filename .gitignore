@@ -20,6 +20,6 @@ prerendered/
 package-lock.json
 yarn.lock
 webpack_dist/
-*/style.css
-*/style.css.map
+style.css
+style.css.map
 webpack-stats.json
