@@ -4,6 +4,7 @@ import VueClipboard from 'vue-clipboard2'
 import VueResource from 'vue-resource'
 import Meta from 'vue-meta';
 import galite from 'ga-lite';
+import VueMoment from 'vue-moment';
 
 //Setup i18n
 Vue.use(VueI18n)
@@ -23,7 +24,9 @@ Object.defineProperty(Vue.prototype, '$locale', {
     }
   })
 
-Vue.use(VueClipboard)
+Vue.use(VueClipboard);
+
+Vue.use(VueMoment);
 
 //Setup metadata SEO
 Vue.use(Meta);

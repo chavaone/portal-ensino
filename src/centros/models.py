@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.utils.timezone import now
 from django.core.validators import RegexValidator
+from profe.models import Profe
 
 class Concello(models.Model):
     PROVINCIAS = [
@@ -82,3 +84,35 @@ class Centro(models.Model):
 
     def __str__(self):
         return self.nome
+
+# class DetalleCentro(models.Model):
+#     TIPO_DETALLE = [
+#         ('H', _('Horario')),
+#         ('B', _('Sección Bilingüe')),
+#         ('C', _('Turno Conche'))
+#     ]
+#     centro = models.ForeignKey(
+#         Centro,
+#         blank=True,
+#         null=True,
+#         on_delete=models.SET_NULL
+#         )
+#     tipo = models.CharField(
+#         max_length=2,
+#         choices=TIPO_DETALLE
+#     )
+#     titulo = models.CharField(max_length=50,)
+#     dato = models.CharField(max_length=100,)
+
+class ListaCentros(models.Model):
+    usuario = models.ForeignKey(
+        Profe,
+        on_delete=models.CASCADE
+    )
+    titulo = models.CharField(max_length=75,)
+    centros = models.JSONField()
+    data = models.DateTimeField(auto_now_add=True)
+    deletable = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.titulo

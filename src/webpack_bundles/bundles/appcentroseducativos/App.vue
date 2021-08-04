@@ -198,7 +198,6 @@ export default {
       $('#centerInfoModal').modal('show');
     },
     loadSegment(segmentList) {
-      console.log(segmentList);
       var lista_codigos = segmentList.split(" "),
           show_centers = [];
 
@@ -209,6 +208,11 @@ export default {
 
       this.activeCenters = show_centers;
 
+    },
+    changeList(list) {
+      this.activeList = list;
+
+      this.resetCenters();
     }
   },
   created() {
@@ -219,6 +223,8 @@ export default {
     eventBus.$on('osmcenterdetails', this.getOSMCenterDetails);
     eventBus.$on('centerdetails', this.getCenterDetails);
     eventBus.$on('loadSegment', this.loadSegment);
+    eventBus.$on('changeList', this.changeList);
+
 
     this.$http.get('/centros/api').then(this.dbLoaded);
   }
