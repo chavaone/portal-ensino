@@ -190,7 +190,7 @@ export default {
     },
     getCenterDetails (centro) {
       this.active_center_details = centro;
-      if (! this.active_center_details.details) {
+      if (! Object.keys(this.active_center_details.details).length) { //We use Object.keys to check is the object is empty.    
         this.$http.get('/centros/api/centro/' + centro.cod).then(function(response) {
           this.active_center_details.details = response.body;
         });

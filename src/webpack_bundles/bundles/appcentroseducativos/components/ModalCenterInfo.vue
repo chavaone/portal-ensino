@@ -209,7 +209,7 @@
       },
       show_data() {
         if (this.center == null) return false;
-        return !!this.center.details;
+        return !! Object.keys(this.center.details).length;
       }
     },
     mounted() {
