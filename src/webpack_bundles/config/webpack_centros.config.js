@@ -7,12 +7,12 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 
 module.exports = {
-  context: path.resolve(__dirname, '../../'),
-  entry: './webpack_bundles/bundles/appcentroseducativos/main.js',
+  context: path.resolve(__dirname, '../bundles/appcentroseducativos/'),
+  entry: './main.js',
   output: {
     path: path.resolve(__dirname, '../../static/js/webpack_dist'),
     publicPath: '/static/js/webpack_dist/',
-    filename: 'buildcentroseducativos.js'
+    filename: 'build-centros.js'
   },
   module: {
     rules: [
@@ -61,7 +61,11 @@ module.exports = {
   },
   devtool: 'eval-source-map',
   plugins: [
-    new BundleTracker({filename: './webpack-stats.json'}),
+    new BundleTracker(
+      {
+        path: path.resolve(__dirname, '../../'),
+        filename: 'webpack-stats.json'
+      }),
     new VueLoaderPlugin()
   ]
 }

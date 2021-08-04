@@ -19,5 +19,7 @@ yarn-error.log
 prerendered/
 package-lock.json
 yarn.lock
-/static/js/webpack_bundles/dist/
+webpack_dist/
+*/style.css
+*/style.css.map
 webpack-stats.json
