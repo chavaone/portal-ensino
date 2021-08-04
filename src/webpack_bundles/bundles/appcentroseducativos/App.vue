@@ -15,7 +15,7 @@
           </form>
         </aside>
         <div class="appmain__content">
-          <AQDDraggable v-if="activeCenters.length > 0"  v-model="activeCenters" @change="setCustomSort()" :options="sortableoptions" class="mainCenterList">
+          <AQDDraggable v-if="activeCenters.length > 0"  v-model="activeCenters" @change="setCustomSort()" handle="h3.name" class="mainCenterList">
               <AQDCenter v-for="centro in paginatedActiveCenters" :centro="centro" :key="centro.cod"></AQDCenter>
           </AQDDraggable>
           <nav class="center-pagination" v-if="activeCenters.length > 0">
@@ -190,7 +190,7 @@ export default {
     },
     getCenterDetails (centro) {
       this.active_center_details = centro;
-      if (! Object.keys(this.active_center_details.details).length) { //We use Object.keys to check is the object is empty.    
+      if (! Object.keys(this.active_center_details.details).length) { //We use Object.keys to check is the object is empty.
         this.$http.get('/centros/api/centro/' + centro.cod).then(function(response) {
           this.active_center_details.details = response.body;
         });
