@@ -1,7 +1,7 @@
 {
-  "name": "ensinopublico",
+  "name": "centrosedutativos",
   "version": "0.1.0",
-  "description": "Portal with tools for teachers in Galicia",
+  "description": "List of centers ",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

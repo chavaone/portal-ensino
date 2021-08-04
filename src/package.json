@@ -1,0 +1,19 @@
+{
+  "name": "portaldoensino",
+  "version": "0.5.0",
+  "description": "Portal with tools for Galician teachers.",
+  "scripts": {
+    "run": "python manage.py runserver"
+  },
+  "keywords": [
+    "Galician",
+    "education",
+    "python"
+  ],
+  "author": "Marcos Chavarría Teijeiro <marcos.chavarria@aquelando.info>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "bootstrap": "^5.0.2"
+  }
+}

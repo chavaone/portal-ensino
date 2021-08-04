@@ -7,7 +7,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 
 module.exports = {
-  context: path.resolve(__dirname, '../bundles/appcentroseducativos/'),
+  context: path.resolve(__dirname),
   entry: './main.js',
   output: {
     path: path.resolve(__dirname, '../../static/js/webpack_dist'),
