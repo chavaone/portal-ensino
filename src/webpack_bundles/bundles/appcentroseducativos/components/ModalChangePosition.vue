@@ -115,10 +115,10 @@ export default {
   }
 
   .modal-dialog {
-    width: 90vw !important;
-    height: 90vh !important;
+    width: 80vw !important;
+    height: 80v h !important;
     max-height: 100%;
-    max-width: 100%;
+    max-width: 100% !important;
   }
 
 </style>
