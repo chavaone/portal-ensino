@@ -45,9 +45,20 @@ INSTALLED_APPS = [
     #3rd party
     'sass_processor',
     'webpack_loader',
-    'sekizai',
     'crispy_forms',
     'crispy_bootstrap5',
+
+    'django.contrib.sites.apps.SitesConfig',
+    'django.contrib.humanize.apps.HumanizeConfig',
+    'django_nyt.apps.DjangoNytConfig',
+    'mptt',
+    'sekizai',
+    'sorl.thumbnail',
+    'wiki.apps.WikiConfig',
+    'wiki.plugins.attachments.apps.AttachmentsConfig',
+    'wiki.plugins.notifications.apps.NotificationsConfig',
+    'wiki.plugins.images.apps.ImagesConfig',
+    'wiki.plugins.macros.apps.MacrosConfig',
 ]
 
 MIDDLEWARE = [
@@ -172,3 +183,8 @@ WEBPACK_LOADER = {
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+#WIKI
+SITE_ID=1
+WIKI_ACCOUNT_HANDLING = False
+WIKI_ANONYMOUS_WRITE = False

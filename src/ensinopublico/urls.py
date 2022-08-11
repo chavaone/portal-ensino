@@ -23,4 +23,6 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('', include('profe.urls')),
     path('', include('centros.urls')),
+    path('notifications/', include('django_nyt.urls')),
+    path('wiki/', include('wiki.urls'))
 ]

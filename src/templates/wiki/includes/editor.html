@@ -1,0 +1,50 @@
+{% load wiki_tags i18n sekizai_tags crispy_forms_tags %}
+
+{% include "wiki/includes/editormedia.html" %}
+
+<form method="POST">
+   {% csrf_token %}
+
+  {{ form | crispy }}
+
+  <div class="form-actions">
+    <div class="btn-group">
+      <button class="btn btn-secondary" type="submit" name="preview" value="1" id="id_preview"
+              formaction="{% url 'wiki:preview' path=urlpath.path article_id=article.id %}"
+              formtarget="previewWindow"
+              >
+        <span class="fa fa-eye"></span>
+        {% trans "Preview" %}
+      </button>
+      <button class="btn btn-primary" type="submit" name="save" value="1" id="id_save">
+        <span class="fa fa-check"></span>
+        {% trans "Save changes" %}
+      </button>
+    </div>
+
+    <div class="btn-group">
+      {% if user.is_authenticated and urlpath.path %}
+      <a href="{% url 'wiki:move' path=urlpath.path article_id=article.id %}" class="btn btn-warning ">
+        <span class="fa fa-random"></span>
+        {% trans "Move article" %}
+      </a>
+      {% endif %}
+      {% if article|can_delete:user %}
+      <a href="{% url 'wiki:delete' path=urlpath.path article_id=article.id %}" class="btn btn-danger">
+        <span class="fa fa-trash-o"></span>
+        {% trans "Delete article" %}
+      </a>
+      {% endif %}
+    </div>
+  </div>
+
+</form>
+
+
+{% addtoblock "js" %}
+<script language="javascript">
+  $(document).ready(function() {
+    $("#id_revision").val('{{ article.current_revision.id }}');
+  });
+</script>
+{% endaddtoblock %}

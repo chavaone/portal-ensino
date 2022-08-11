@@ -1,0 +1,27 @@
+{% extends "wiki/article.html" %}
+{% load wiki_tags i18n crispy_forms_tags %}
+
+{% block wiki_pagetitle %}{% trans "Settings" %}: {{ article.current_revision.title }}{% endblock %}
+
+{% block wiki_contents_tab %}
+<div class="wiki_content wiki_settings">
+
+  {% for form in forms %}
+  <div class="wiki_settings__page">
+    <h3 class="page-header">{{ form.settings_form_headline }}</h3>
+    <form method="POST">
+      {% csrf_token %}
+
+      {{ form | crispy }}
+
+      <div class="form-group form-actions">
+          <button type="submit" name="save" value="1" class="btn btn-primary">
+            <span class="fa fa-check"></span>
+            {% trans "Save changes" %}
+          </button>
+      </div>
+    </form>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

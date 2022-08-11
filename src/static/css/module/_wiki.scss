@@ -1,0 +1,53 @@
+
+.wiki {
+
+  .article_breadcrumbs {
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    padding: 0.75em;
+
+    display: flex;
+    justify-content: space-between;
+
+    &>nav {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  #article-container {
+    margin-top:1em;
+  }
+
+  #article-menu {
+    border-bottom: 1px solid #EEE;
+    padding-bottom: 0;
+    margin-bottom: 20px;
+    padding-left: 0;
+  }
+
+  #article_edit_form {
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
+
+.wiki_content {
+  margin: 0 2em;
+}
+
+.wiki_settings {
+  &__page {
+    padding-bottom: 1em;
+    border-bottom: 0.25px solid #00000021;
+    margin-bottom: 2em;
+  }
+
+  form, div.form-actions {
+    margin-left:1em;
+  }
+}
