@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_node_assets',
 
     'profe.apps.ProfeConfig',
     'centros.apps.CentrosConfig',
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     #3rd party
     'sass_processor',
     'webpack_loader',
+    'sekizai',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +71,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'sekizai.context_processors.sekizai',
             ],
         },
     },
@@ -123,6 +126,16 @@ STATICFILES_DIRS = [
     os.path.join(os.path.join(BASE_DIR, "static"), "css"),
 ]
 STATIC_URL = '/static/'
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django_node_assets.finders.NodeModulesFinder',
+]
+
+#Node Assets
+NODE_PACKAGE_JSON = 'package.json'
+NODE_MODULES_ROOT = 'node_modules'
 
 #SASS PROCESSOR
 SASS_PROCESSOR_ROOT = os.path.join(os.path.join(BASE_DIR, "static"), "css")

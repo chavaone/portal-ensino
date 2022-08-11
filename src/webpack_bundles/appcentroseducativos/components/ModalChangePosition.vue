@@ -34,11 +34,12 @@ import { eventBus } from '../main.js';
 import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import VGeosearch from 'vue2-leaflet-geosearch/Vue2LeafletGeosearch';
+import $ from "jquery";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: '/static/img/marker-icon2.png',
-  iconUrl: '/static/img/marker-icon2.png',
+  iconRetinaUrl: 'marker-icon-blue.png',
+  iconUrl: 'marker-icon-blue.png',
   shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
 
@@ -63,7 +64,7 @@ export default {
         searchLabel: this.$i18n.t('search-label'),
         marker: {                                           // optional: L.Marker    - default L.Icon.Default
           icon: L.icon({
-            iconUrl: '/static/marker-icon3.png',
+            iconUrl: 'marker-icon-red.png',
             iconSize: [25, 41],
             iconAnchor: [12, 41],
             popupAnchor: [1, -34]

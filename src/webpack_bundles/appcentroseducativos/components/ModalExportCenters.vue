@@ -121,6 +121,7 @@ import galite from 'ga-lite'
 import jsPDF from 'jspdf';
 import Draggable from 'vuedraggable'
 import { eventBus } from '../main.js'
+import $ from "jquery";
 
 export default {
   props: {

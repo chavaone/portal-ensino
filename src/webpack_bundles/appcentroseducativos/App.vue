@@ -56,7 +56,6 @@ var raw_centers_db;
 //Components
 import Draggable from 'vuedraggable'
 import Center from './components/Center.vue'
-import MainHeaderBar from './components/MainHeaderBar.vue'
 import FilterList from './components/filter/FilterList.vue'
 import SortList from './components/sort/SortList.vue'
 import Trash from './components/Trash.vue'
@@ -105,7 +104,6 @@ export default {
     'AQDDraggable': Draggable,
     'AQDCenter': Center,
     'AQDFilterList': FilterList,
-    'AQDMainHeaderBar': MainHeaderBar,
     'AQDSortControl': SortList,
     'AQDTrash': Trash,
     'AQDLandingMessage': LandingMessage,

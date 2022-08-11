@@ -1,6 +1,6 @@
 
 //Bootstrap
-//import 'bootstrap';
+import 'bootstrap/dist/js/bootstrap.min';
 
 //FontAwesome
 //import fontawesome from '@fortawesome/fontawesome';
