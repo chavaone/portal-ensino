@@ -1,0 +1,40 @@
+<!-- templates/account_edit.html -->
+{% extends "base_edit_profe.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load sekizai_tags %}
+
+{% block edit_tab_content %}
+<div class="editcontent__section">
+  <h4>Preferencias Permutas</h4>
+  {% crispy form %}
+</div>
+
+{% addtoblock "morejs" %}
+<script>
+  var app = {};
+  app.checkActivarPermutas = function () {
+    var valueCenter = document.getElementById("{{form.centro_actual.id_for_label}}").value,
+        valueLista = document.getElementById("{{form.lista_peticiones.id_for_label}}").value,
+        valueEspecialidade = document.getElementById("{{form.especialidad.id_for_label}}").value;
+
+    document.getElementById("{{form.activar_permutas.id_for_label}}").disabled = ! (valueCenter && valueLista && valueEspecialidade);
+
+    if (! (valueCenter && valueLista && valueEspecialidade)) {
+        document.getElementById("{{form.activar_permutas.id_for_label}}").checked = 0;
+    }
+  }
+
+  $( document ).ready(function() {
+    document.getElementById("div_id_activar_permutas").classList.add('form-switch');
+    document.getElementById("id_activar_permutas").classList.add("form-check-input");
+    app.checkActivarPermutas();
+
+    document.getElementById("{{form.centro_actual.id_for_label}}").onchange = app.checkActivarPermutas;
+    document.getElementById("{{form.lista_peticiones.id_for_label}}").onchange = app.checkActivarPermutas;
+    document.getElementById("{{form.especialidad.id_for_label}}").onchange = app.checkActivarPermutas;
+});
+</script>
+{% endaddtoblock %}
+
+{% endblock %}

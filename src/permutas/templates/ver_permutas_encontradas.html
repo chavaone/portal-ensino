@@ -1,0 +1,47 @@
+<!-- templates/log_busca_permutas.html -->
+{% extends "base.html" %}
+
+{% block subsitename %}
+Permutas
+{% endblock %}
+
+{% block title %}
+Permutas atopadas
+{% endblock %}
+
+{% block content %}
+  {% if authenticated %}
+
+    {% if permutas %}
+      <ol class="lista_permutas">
+      {% for permuta_mult in permutas %}
+        <li>
+          {% for permuta in permuta_mult %}
+            <div class="permuta">
+              <div class="permuta__profe">
+                <span class="permuta__profe__nome">{{permuta.profe1.usuario.email}}</span>
+                <span class="permuta__profe__centro">{{permuta.centro1}}</span>
+                <a href="" class="permuta__profe__contacto {% if permuta.profe1.usuario == usuario %}btn disabled{% endif %}">                  <i class="fas fa-envelope"></i>
+                </a>
+              </div>
+              <div><i class="fas fa-sync"></i></div>
+              <div class="permuta__profe">
+                <span class="permuta__profe__nome">{{permuta.profe2.usuario.email}}</span>
+                <span class="permuta__profe__centro">{{permuta.centro2}}</span>
+                <a href="" class="permuta__profe__contacto {% if permuta.profe2.usuario == usuario %}btn disabled{% endif %}">
+                  <i class="fas fa-envelope"></i>
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+        </li>
+      {% endfor %}
+      </ol>
+    {% else %}
+      <p>Non se atoparon permutas.</p>
+    {% endif %}
+
+  {% else %}
+    <p>Tes que estar autenticado para ver as permutas atopadas.</p>
+  {% endif %}
+{% endblock %}
