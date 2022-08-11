@@ -1,6 +1,8 @@
 asgiref==3.5.2
+crispy-bootstrap5==0.6
 Django==4.1
 django-classy-tags==3.0.1
+django-crispy-forms==1.14.0
 django-node-assets==0.9.11
 django-sass-processor==1.2.1
 django-sekizai==4.0.0
