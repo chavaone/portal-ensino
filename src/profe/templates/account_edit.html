@@ -9,7 +9,7 @@
   <form method="post" class="form">
     {% csrf_token %}
 
-    <div class="form-group">
+    <div class="mb-3">
       <label for="{{ form.first_name.id_for_label }}">
         {{ form.first_name.label }}
       </label>
@@ -30,7 +30,7 @@
       {% endfor %}
     </div>
 
-    <div class="form-group">
+    <div class="mb-3">
       <label for="{{ form.last_name.id_for_label }}">
         {{ form.last_name.label }}
       </label>
@@ -58,7 +58,7 @@
 <div class="editcontent__section">
   <h4>{% trans 'Avatar' %}</h4>
   <div class="avatarsection">
-    <img class="avatarsection__img" src="{{ user|gravatar:100 }}" height="100" width="100"/>
+    <img class="avatarsection__img" src="{{ user|avatar:100 }}" height="100" width="100"/>
     <p class="avatarsection__txt">
       {% blocktrans %}
       We are using Gravatar to get your avatar from your registration email. To change this image check <a href="https://gravatar.com/">Gravatar website</a>.

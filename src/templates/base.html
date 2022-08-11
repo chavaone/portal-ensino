@@ -16,46 +16,43 @@
   <link href="{% sass_src 'style.scss' %}" rel="stylesheet" type="text/css" />
 </head>
 <body>
-  <header class="container sitenav">
+  <header class="sitenav">
     <nav class="navbar navbar-expand-lg navbar-light mainnavbar">
-      <span class="navbar-brand mainnav__brand">
-        <a class="mainnav__sitename" href="{% url 'home' %}">EnsinoPúblico.gal</a>
-        <span class="mainnav__subsitename" >{% block subsitename %}{% endblock %}</span>
-      </span>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse mainnav__mainmenu" id="mainMenu">
-        <ul class="navbar-nav mainnav__appmenu">
-          {% block mainmenu %}
-          {% endblock %}
-        </ul>
-        <ul class="navbar-nav mainnav__usermenu">
-          {% if user.is_authenticated %}
+      <div class="container">
+        <span class="navbar-brand mainnav__brand">
+          <a class="mainnav__sitename" href="{% url 'home' %}">EnsinoPúblico.gal</a>
+          <span class="mainnav__subsitename" >{% block subsitename %}{% endblock %}</span>
+        </span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse mainnav__mainmenu" id="mainMenu">
+          <ul class="navbar-nav mainnav__appmenu">
+            {% block mainmenu %}
+            {% endblock %}
+          </ul>
+          <ul class="navbar-nav mainnav__usermenu">
             <li class="nav-item dropdown mainnav__user">
-              <a class="nav-link  dropdown-toggle" href="#" role="button" id="dropdownMenuAutenticado" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img class="mainnav__avatar" src="{{ user|gravatar:40 }}" />
-                <span class="mainnav__username">{% if user.first_name %} {{ user.first_name }} {% else %} {{ user.email }} {% endif %}</span>
+              <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuUser" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {% if user.is_authenticated %}
+                <img class="mainnav__avatar" src="{{ user|avatar:40 }}" />
+                {% else %}
+                {% endif %}
               </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuAutenticado">
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuUser">
+                {% if user.is_authenticated %}
                 <a class="dropdown-item" href="{% url 'edit_profe_data' %}">Preferencias</a>
                 <a class="dropdown-item" href="{% url 'logout' %}">Pechar Sesión</a>
-              </div>
-            </li>
-          {% else %}
-            <li class="nav-item dropdown mainnav__user">
-              <a class="nav-link  dropdown-toggle" href="#" role="button" id="dropdownMenuSinAutenticar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img class="mainnav__avatar" src="/static/img/avatar.png" width="40" height="40" />
-              </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuSinAutenticar">
+                {% else %}
                 <a class="dropdown-item" href="{% url 'login' %}" class="nav-link">Iniciar Sesión</a>
                 <a class="dropdown-item" href="{% url 'rexistro' %}" class="nav-link">Rexistrase</a>
+                {% endif %}
+                {% block moreusermenu %}{% endblock %}
               </div>
             </li>
-          {% endif %}
-        </ul>
+          </ul>
+        </div>
       </div>
-
     </nav>
   </header>
   <main class="container sitecontent">
